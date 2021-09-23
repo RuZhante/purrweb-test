@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from 'src/user/user.entity';
 import { DeleteResult, Repository } from 'typeorm';
@@ -25,7 +25,16 @@ export class ColumnService {
   }
 
   async getColumnById(columnId: number): Promise<ColumnEntity> {
-    return await this.columnRepository.findOne(columnId);
+    const column = await this.columnRepository.findOne(columnId);
+
+    if (!column) {
+      throw new HttpException(
+        'Column does not exist!',
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
+
+    return column;
   }
 
   async getAllColumns(): Promise<ColumnEntity[]> {
@@ -37,6 +46,14 @@ export class ColumnService {
     updateColumnDto: CreateColumnDto,
   ): Promise<ColumnEntity> {
     const column = await this.columnRepository.findOne(columnId);
+
+    if (!column) {
+      throw new HttpException(
+        'Column does not exist!',
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
+
     Object.assign(column, updateColumnDto);
     return await this.columnRepository.save(column);
   }
@@ -46,7 +63,16 @@ export class ColumnService {
   }
 
   async findById(columnId: number): Promise<ColumnEntity> {
-    return await this.columnRepository.findOne(columnId);
+    const column = await this.columnRepository.findOne(columnId);
+
+    if (!column) {
+      throw new HttpException(
+        'Column does not exist!',
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
+
+    return column;
   }
 
   buildResponse(column: ColumnEntity): ColumnResponseInterface {

@@ -24,8 +24,8 @@ export class CardService {
   ): Promise<CardEntity> {
     const card = new CardEntity();
     Object.assign(card, createCardDto);
-    const colunm = await this.columnRepository.findOne(columnId);
-    card.column = colunm;
+    const column = await this.columnRepository.findOne(columnId);
+    card.column = column;
     card.user = currentUser;
     return await this.cardRepository.save(card);
   }
