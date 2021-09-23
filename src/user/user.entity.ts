@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { hash } from 'bcrypt';
 import { ColumnEntity } from 'src/column/column.entity';
+import { CardEntity } from 'src/card/card.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -26,4 +27,7 @@ export class UserEntity {
 
   @OneToMany(() => ColumnEntity, (column) => column.user)
   columns: ColumnEntity[];
+
+  @OneToMany(() => CardEntity, (card) => card.user)
+  cards: CardEntity[];
 }

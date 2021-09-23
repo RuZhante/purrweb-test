@@ -46,19 +46,19 @@ export class ColumnController {
     return this.columnService.buildResponseAllColumns(columns);
   }
 
-  @Get(':id')
+  @Get(':columnId')
   async getColumnById(
-    @Param('id', ParseIntPipe) columnId: number,
+    @Param('columnId', new ParseIntPipe()) columnId: number,
   ): Promise<ColumnResponseInterface> {
     const column = await this.columnService.getColumnById(columnId);
     return this.columnService.buildResponse(column);
   }
 
-  @Put(':id')
+  @Put(':columnId')
   @UseGuards(AuthGuard, UserIsOwnerColumnGuard)
   @UsePipes(new ValidationPipe())
   async updateColumn(
-    @Param('id', ParseIntPipe) columnId: number,
+    @Param('columnId', new ParseIntPipe()) columnId: number,
     @Body('column') updateColumnDto: CreateColumnDto,
   ): Promise<ColumnResponseInterface> {
     const column = await this.columnService.updateColumn(
@@ -68,9 +68,11 @@ export class ColumnController {
     return this.columnService.buildResponse(column);
   }
 
-  @Delete(':id')
+  @Delete(':columnId')
   @UseGuards(AuthGuard, UserIsOwnerColumnGuard)
-  async deleteColumn(@Param('id') columnId: number): Promise<DeleteResult> {
+  async deleteColumn(
+    @Param('columnId', new ParseIntPipe()) columnId: number,
+  ): Promise<DeleteResult> {
     return await this.columnService.deleteColumn(columnId);
   }
 }
