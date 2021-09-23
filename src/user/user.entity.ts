@@ -8,6 +8,7 @@ import {
 import { hash } from 'bcrypt';
 import { ColumnEntity } from 'src/column/column.entity';
 import { CardEntity } from 'src/card/card.entity';
+import { CommentEntity } from 'src/comment/comment.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -30,4 +31,7 @@ export class UserEntity {
 
   @OneToMany(() => CardEntity, (card) => card.user)
   cards: CardEntity[];
+
+  @OneToMany(() => CommentEntity, (comment) => comment.user)
+  comments: CommentEntity[];
 }

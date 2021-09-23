@@ -1,17 +1,15 @@
-import { ColumnEntity } from 'src/column/column.entity';
-import { CommentEntity } from 'src/comment/comment.entity';
+import { CardEntity } from 'src/card/card.entity';
 import { UserEntity } from 'src/user/user.entity';
 import {
   BeforeUpdate,
   Column,
   Entity,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity({ name: 'cards' })
-export class CardEntity {
+@Entity({ name: 'comments' })
+export class CommentEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -32,12 +30,9 @@ export class CardEntity {
     this.updatedAt = new Date();
   }
 
-  @ManyToOne(() => ColumnEntity, (column) => column.cards)
-  column: ColumnEntity;
-
-  @ManyToOne(() => UserEntity, (user) => user.cards, { eager: true })
+  @ManyToOne(() => UserEntity, (user) => user.comments, { eager: true })
   user: UserEntity;
 
-  @OneToMany(() => CommentEntity, (comment) => comment.card)
-  comments: CommentEntity[];
+  @ManyToOne(() => CardEntity, (card) => card.comments, { eager: true })
+  card: CardEntity;
 }
