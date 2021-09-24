@@ -1,7 +1,5 @@
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
 Purrweb test (RESTful API с авторизацией для Trello на Nest.js)
 
 ## Installation
