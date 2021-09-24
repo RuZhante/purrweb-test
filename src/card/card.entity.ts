@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { ColumnEntity } from 'src/column/column.entity';
 import { CommentEntity } from 'src/comment/comment.entity';
 import { UserEntity } from 'src/user/user.entity';
@@ -12,18 +13,23 @@ import {
 
 @Entity({ name: 'cards' })
 export class CardEntity {
+  @ApiProperty()
   @PrimaryGeneratedColumn()
   id: number;
 
+  @ApiProperty()
   @Column()
   title: string;
 
+  @ApiProperty()
   @Column()
   body: string;
 
+  @ApiProperty()
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
+  @ApiProperty()
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
